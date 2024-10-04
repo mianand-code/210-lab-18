@@ -69,9 +69,26 @@ int main()
     // input validation is included to ensure that the user does not leave the field blank
     do
     {
-        
+        cout << "Please enter review comments for the movie: ";
+        getline(cin, comment);
+
+        if (comment.empty())
+            cout << "ERROR: Field cannot remain blank. Please try again by entering review comments." << endl << endl;
 
     } while (comment.empty());
+
+    // store inputted data in linked list
+    if (userMode = 1) // if the user wants nodes to be added to the head
+        addNodeToHead(head, rating, comment); // addNodeToHead() function call, will add all nodes to head
+    else // if the user wants nodes to be added to the tail
+        addNodeToTail(head, rating, comment); // addNodeToTail() function call, will add all nodes to tail
+
+    // output contents of linked list
+    // output() function call, will output contents stored in all nodes and will calculate/output the average movie rating
+    output(head);
+
+    // clean up linked list to avoid memory leaks, for good housekeeping
+    MovieReviewNode *current = head;
     
     return 0;
 }
