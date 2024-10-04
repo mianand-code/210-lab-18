@@ -30,7 +30,7 @@ int main()
     string comment; // to hold the user input for comment about the movie
     char additionalReview; // to hold the user's choice when asked if they want to enter info about another review
 
-    do
+    do // do-while loop starts and everything in the loop will repeat as long as the user enters 'Y' or 'y', meaning they want to enter another review
     {
         // prompt user to enter a value that corresponds to the mode they would like to select (head or tail)
         // input validation is included to ensure that the user only selects 1 or 2, since there are only 2 options
@@ -57,7 +57,7 @@ int main()
 
             if (rating < 0.0 || rating > 5.0)
             {
-                cout << "ERROR: Movie rating should be within the range of 0.0 - 5.0. Please try again by entering a valid rating." << endl << endl;
+                cout << "ERROR: Movie rating should be within the range of 0.0 - 5.0. Please try again by entering a valid rating." << endl;
                 cin.clear(); // needed to read input again
                 cin.ignore(1000, 10); 
             }
@@ -89,11 +89,20 @@ int main()
             addNodeToTail(head, rating, comment); // addNodeToTail() function call, will add all nodes to tail
         
         // ask user if they would like to enter another review 
-        cout << "Would you like to enter another review? (Y/N): ";
-        cin >> additionalReview;
-        cout << endl;
+        // input validation is included to ensure that the user only enters 'Y, 'y', 'N', or 'n'
+        do
+        {
+            // ask user if they would like to enter another review 
+            cout << "Would you like to enter another review? (Y/N): ";
+            cin >> additionalReview;
+            cout << endl;
 
-    } while (additionalReview == 'Y' || additionalReview == 'y');
+            if (additionalReview != 'Y' && additionalReview != 'y' && additionalReview != 'N' && additionalReview != 'n')
+                cout << "ERROR: Input has to be Y/N or y/n only. Please try again by entering a valid choice." << endl;
+
+        } while (additionalReview != 'Y' && additionalReview != 'y' && additionalReview != 'N' && additionalReview != 'n');
+
+    } while (additionalReview == 'Y' || additionalReview == 'y'); // handles both lower and upper cases of yes option
 
     // output contents of linked list
     // output() function call, will output contents stored in all nodes and will calculate/output the average movie rating
