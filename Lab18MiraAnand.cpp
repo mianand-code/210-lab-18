@@ -75,6 +75,7 @@ int main()
         {
             cout << "Please enter review comments for the movie: ";
             getline(cin, comment);
+            cout << endl;
 
             if (comment.empty())
                 cout << "ERROR: Field cannot remain blank. Please try again by entering review comments." << endl << endl;
@@ -86,8 +87,13 @@ int main()
             addNodeToHead(head, rating, comment); // addNodeToHead() function call, will add all nodes to head
         else // if the user wants nodes to be added to the tail
             addNodeToTail(head, rating, comment); // addNodeToTail() function call, will add all nodes to tail
+        
+        // ask user if they would like to enter another review 
+        cout << "Would you like to enter another review? (Y/N): ";
+        cin >> additionalReview;
+        cout << endl;
 
-    } while (additionalReview == 'Y');
+    } while (additionalReview == 'Y' && additionalReview == 'Y');
 
     // output contents of linked list
     // output() function call, will output contents stored in all nodes and will calculate/output the average movie rating
