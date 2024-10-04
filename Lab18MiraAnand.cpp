@@ -28,6 +28,18 @@ int main()
     int userMode; // to hold the user's choice of head or tail mode for node addition
     double rating; // to hold the movie rating
     string comment; // to hold the comment about the movie
+
+    // prompt user to enter a value that corresponds to the mode they would like to select (head or tail)
+    // input validation is included to ensure that the user only selects 1 or 2, since there are only 2 options
+    do 
+    {
+        cout << "Which linked list method would you like to choose? - " << endl;
+        cout << "[1] New nodes are added at the head of the linked list" << endl;
+        cout << "[2] New nodes are added at the tail of the linked list" << endl;
+        cout << "Please enter your choice here (1 or 2 only): ";
+        cin >> userMode;
+
+    } while (userMode != 1 && userMode != 2);
     
     return 0;
 }
@@ -88,10 +100,12 @@ void addNodeToTail(MovieReviewNode *& head, double rating, string comment)
     }
 }
 
-// function header
-// DESCRIPTION:
-// ARGUMENTS:
-// RETURNS:
+// output(MovieReviewNode * head) function header
+// DESCRIPTION: this function will check if the linked list is empty or not. The contents of the linked list will be neatly outputted to the console
+// - if there are no contents, the user will be notified with a console message and the program will exit
+// - if there are contents, the average movie rating will also be calculated and outputted
+// ARGUMENTS: MovieReviewNode *& head, which is a pointer to the head of the list
+// RETURNS: nothing, void function. Purpose is to just output contents of list + perform/output a calculation or tell the user that list is empty
 void output(MovieReviewNode * head)
 {
     if (!head) // if linked list is empty
