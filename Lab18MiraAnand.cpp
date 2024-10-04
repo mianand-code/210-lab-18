@@ -58,10 +58,12 @@ void addNodeToHead(MovieReviewNode *& head, double rating, string comment)
 }
 
 // addNodeToTail(MovieReviewNode *& head, double rating, string comment) function header
-// DESCRIPTION:
-// ARGUMENTS:
+// DESCRIPTION: this function will create a new node, set the value of the new node, and add this new node to the end (tail) of the list
+// ARGUMENTS: MovieReviewNode *& head, which is a pointer to the head of the list
+// - double rating, which represents the movie rating being added
+// - string comment, which represents the movie comment being added
 // Passing by reference because the linked list will be modified and this modification will also reflect in main()
-// RETURNS:
+// RETURNS: nothing, void function. Purpose is to just create a node with values and add it to the tail of the list
 void addNodeToTail(MovieReviewNode *& head, double rating, string comment)
 {
     MovieReviewNode *newNode = new MovieReviewNode; // create a new node
@@ -83,5 +85,30 @@ void addNodeToTail(MovieReviewNode *& head, double rating, string comment)
         }
 
         current->next = newNode; // last node is now set to newNode
+    }
+}
+
+// function header
+// DESCRIPTION:
+// ARGUMENTS:
+// RETURNS:
+void output(MovieReviewNode * head)
+{
+    if (!head) // if linked list is empty
+    {
+        cout << "The linked list is empty." << endl;
+        cout << "Now exiting program..." << endl;
+        return; // exit the function
+    }
+
+    int count = 1; // to keep a count/track of the movie reviews (starts at 1)
+    MovieReviewNode *current = head; // // used to start at the beginning of the list and traverse
+
+    // traverse the list and display its contents (movie reviews)
+    cout << "Outputting all reviews..." << endl << endl;
+    while (current)
+    {
+        cout << "Review #" << count++ << "-" << endl;
+        cout << "Rating: " << current->movieRating << endl;
     }
 }
