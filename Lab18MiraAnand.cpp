@@ -109,6 +109,24 @@ void output(MovieReviewNode * head)
     while (current)
     {
         cout << "Review #" << count++ << "-" << endl;
-        cout << "Rating: " << current->movieRating << endl;
+        cout << "Rating: " << current->movieRating << ", ";
+        cout << "Comments: " << current->movieComment << endl << endl;
+
+        current = current->next; // move to next node
     }
+
+    // calculate/output average review
+    double sum = 0.0; // to sum all ratings
+    double average = 0.0; // to hold calculated average
+    current = head; // set current back to head
+
+    // traverse the list again
+    while (current)
+    {
+        sum = sum + current->movieRating; // keep a running total of the ratings
+        current = current->next; // move to next node
+    }
+
+    average = sum/count; // calculate average
+    cout << "Average rating: " << average << endl;
 }
