@@ -30,60 +30,64 @@ int main()
     string comment; // to hold the user input for comment about the movie
     char additionalReview; // to hold the user's choice when asked if they want to enter info about another review
 
-    // prompt user to enter a value that corresponds to the mode they would like to select (head or tail)
-    // input validation is included to ensure that the user only selects 1 or 2, since there are only 2 options
-    do 
-    {
-        cout << "Which linked list method would you like to choose? - " << endl;
-        cout << "[1] New nodes are added at the head of the linked list" << endl;
-        cout << "[2] New nodes are added at the tail of the linked list" << endl;
-        cout << "Please enter your choice here (1 or 2 only): ";
-        cin >> userMode;
-
-        if (userMode != 1 && userMode != 2)
-            cout << "ERROR: Selection has to be option 1 or option 2. Please try again by entering a valid option." << endl << endl;
-
-    } while (userMode != 1 && userMode != 2);
-
-    // prompt user to enter a movie rating
-    // input validation is included to ensure that the user only enters a value between 0.0 and 5.0, since that is the range for valid movie review ratings
     do
     {
-        cout << endl;
-        cout << "Please enter a rating for the movie (0.0 to 5.0 only): ";
-        cin >> rating;
-
-        if (rating < 0.0 || rating > 5.0)
+        // prompt user to enter a value that corresponds to the mode they would like to select (head or tail)
+        // input validation is included to ensure that the user only selects 1 or 2, since there are only 2 options
+        do 
         {
-            cout << "ERROR: Movie rating should be within the range of 0.0-5.0. Please try again by entering a valid rating." << endl << endl;
-            cin.clear(); // needed to read input again
-            cin.ignore(1000, 10); 
-        }
-        else
+            cout << "Which linked list method would you like to choose? - " << endl;
+            cout << "[1] New nodes are added at the head of the linked list" << endl;
+            cout << "[2] New nodes are added at the tail of the linked list" << endl;
+            cout << "Please enter your choice here (1 or 2 only): ";
+            cin >> userMode;
+
+            if (userMode != 1 && userMode != 2)
+                cout << "ERROR: Selection has to be option 1 or option 2. Please try again by entering a valid option." << endl << endl;
+
+        } while (userMode != 1 && userMode != 2);
+
+        // prompt user to enter a movie rating
+        // input validation is included to ensure that the user only enters a value between 0.0 and 5.0, since that is the range for valid movie review ratings
+        do
         {
-            cin.ignore();
-            break;
-        }
+            cout << endl;
+            cout << "Please enter a rating for the movie (0.0 to 5.0 only): ";
+            cin >> rating;
 
-    } while (true);
+            if (rating < 0.0 || rating > 5.0)
+            {
+                cout << "ERROR: Movie rating should be within the range of 0.0-5.0. Please try again by entering a valid rating." << endl << endl;
+                cin.clear(); // needed to read input again
+                cin.ignore(1000, 10); 
+            }
+            else
+            {
+                cin.ignore();
+                break;
+            }
 
-    // prompt user to enter movie comments
-    // input validation is included to ensure that the user does not leave the field blank
-    do
-    {
-        cout << "Please enter review comments for the movie: ";
-        getline(cin, comment);
+        } while (true);
 
-        if (comment.empty())
-            cout << "ERROR: Field cannot remain blank. Please try again by entering review comments." << endl << endl;
+        // prompt user to enter movie comments
+        // input validation is included to ensure that the user does not leave the field blank
+        do
+        {
+            cout << "Please enter review comments for the movie: ";
+            getline(cin, comment);
 
-    } while (comment.empty());
+            if (comment.empty())
+                cout << "ERROR: Field cannot remain blank. Please try again by entering review comments." << endl << endl;
 
-    // store inputted data in linked list
-    if (userMode == 1) // if the user wants nodes to be added to the head
-        addNodeToHead(head, rating, comment); // addNodeToHead() function call, will add all nodes to head
-    else // if the user wants nodes to be added to the tail
-        addNodeToTail(head, rating, comment); // addNodeToTail() function call, will add all nodes to tail
+        } while (comment.empty());
+
+        // store inputted data in linked list
+        if (userMode == 1) // if the user wants nodes to be added to the head
+            addNodeToHead(head, rating, comment); // addNodeToHead() function call, will add all nodes to head
+        else // if the user wants nodes to be added to the tail
+            addNodeToTail(head, rating, comment); // addNodeToTail() function call, will add all nodes to tail
+
+    } while (additionalReview == 'Y');
 
     // output contents of linked list
     // output() function call, will output contents stored in all nodes and will calculate/output the average movie rating
