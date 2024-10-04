@@ -26,8 +26,9 @@ int main()
 
     // declaration of variables section
     int userMode; // to hold the user's choice of head or tail mode for node addition
-    double rating; // to hold the movie rating
-    string comment; // to hold the comment about the movie
+    double rating; // to hold the user input for movie rating
+    string comment; // to hold the user input for comment about the movie
+    char additionalReview; // to hold the user's choice when asked if they want to enter info about another review
 
     // prompt user to enter a value that corresponds to the mode they would like to select (head or tail)
     // input validation is included to ensure that the user only selects 1 or 2, since there are only 2 options
@@ -48,6 +49,7 @@ int main()
     // input validation is included to ensure that the user only enters a value between 0.0 and 5.0, since that is the range for valid movie review ratings
     do
     {
+        cout << endl;
         cout << "Please enter a rating for the movie (0.0 to 5.0 only): ";
         cin >> rating;
 
@@ -78,7 +80,7 @@ int main()
     } while (comment.empty());
 
     // store inputted data in linked list
-    if (userMode = 1) // if the user wants nodes to be added to the head
+    if (userMode == 1) // if the user wants nodes to be added to the head
         addNodeToHead(head, rating, comment); // addNodeToHead() function call, will add all nodes to head
     else // if the user wants nodes to be added to the tail
         addNodeToTail(head, rating, comment); // addNodeToTail() function call, will add all nodes to tail
@@ -88,7 +90,15 @@ int main()
     output(head);
 
     // clean up linked list to avoid memory leaks, for good housekeeping
-    MovieReviewNode *current = head;
+    MovieReviewNode *current = head; // set current to head of list
+    while (current) // traverse the list, visit each node
+    {
+        head = current->next; // head is set to next node
+        delete current; // delete node
+        current = head; // current is set to head again
+    }
+
+    head = nullptr; // indicates an empty list
     
     return 0;
 }
