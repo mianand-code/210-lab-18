@@ -39,7 +39,39 @@ int main()
         cout << "Please enter your choice here (1 or 2 only): ";
         cin >> userMode;
 
+        if (userMode != 1 && userMode != 2)
+            cout << "ERROR: Selection has to be option 1 or option 2. Please try again by entering a valid option." << endl << endl;
+
     } while (userMode != 1 && userMode != 2);
+
+    // prompt user to enter a movie rating
+    // input validation is included to ensure that the user only enters a value between 0.0 and 5.0, since that is the range for valid movie review ratings
+    do
+    {
+        cout << "Please enter a rating for the movie (0.0 to 5.0 only): ";
+        cin >> rating;
+
+        if (rating < 0.0 || rating > 5.0)
+        {
+            cout << "ERROR: Movie rating should be within the range of 0.0-5.0. Please try again by entering a valid rating." << endl << endl;
+            cin.clear(); // needed to read input again
+            cin.ignore(1000, 10); 
+        }
+        else
+        {
+            cin.ignore();
+            break;
+        }
+
+    } while (true);
+
+    // prompt user to enter movie comments
+    // input validation is included to ensure that the user does not leave the field blank
+    do
+    {
+        
+
+    } while (comment.empty());
     
     return 0;
 }
