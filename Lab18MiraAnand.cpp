@@ -57,7 +57,7 @@ int main()
 
             if (rating < 0.0 || rating > 5.0)
             {
-                cout << "ERROR: Movie rating should be within the range of 0.0-5.0. Please try again by entering a valid rating." << endl << endl;
+                cout << "ERROR: Movie rating should be within the range of 0.0 - 5.0. Please try again by entering a valid rating." << endl << endl;
                 cin.clear(); // needed to read input again
                 cin.ignore(1000, 10); 
             }
@@ -93,7 +93,7 @@ int main()
         cin >> additionalReview;
         cout << endl;
 
-    } while (additionalReview == 'Y' && additionalReview == 'Y');
+    } while (additionalReview == 'Y' || additionalReview == 'y');
 
     // output contents of linked list
     // output() function call, will output contents stored in all nodes and will calculate/output the average movie rating
@@ -210,6 +210,6 @@ void output(MovieReviewNode * head)
         current = current->next; // move to next node
     }
 
-    average = sum/count; // calculate average
+    average = sum / count; // calculate average
     cout << "Average rating: " << average << endl;
 }
