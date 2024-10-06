@@ -22,36 +22,36 @@ void output(MovieReviewNode *);
 
 int main()
 {
-    MovieReviewNode *head = nullptr; // define a pointer for the head of the list and initialize it to nullptr to indicate an empty list
+    MovieReviewNode *head = nullptr; // define a pointer for the head of the list and initialize it to nullptr to indicate an empty linked list
 
     // declaration of variables section
-    int userMode; // to hold the user's choice of head or tail mode for node addition
+    int userMode; // to hold the user's choice of head or tail mode to add new nodes to the list
     double rating; // to hold the user input for movie rating
-    string comment; // to hold the user input for comment about the movie
-    char additionalReview; // to hold the user's choice when asked if they want to enter info about another review
+    string comment; // to hold the user input for movie review comment
+    char additionalReview; // to hold the user's choice when asked if they want to enter another movie review
+
+    // prompt user to enter a value that corresponds to the mode they would like to select (head or tail)
+    // input validation is included to ensure that the user only selects 1 or 2, since there are only 2 options
+    do 
+    {
+        cout << "Which linked list method would you like to choose? - " << endl;
+        cout << "[1] New nodes are added at the head of the linked list" << endl;
+        cout << "[2] New nodes are added at the tail of the linked list" << endl;
+        cout << "Please enter your choice here (1 or 2 only): ";
+        cin >> userMode;
+        cout << endl;
+
+        if (userMode != 1 && userMode != 2)
+            cout << "ERROR: Selection has to be option 1 or option 2. Please try again by entering a valid option." << endl << endl;
+
+    } while (userMode != 1 && userMode != 2);
 
     do // do-while loop starts and everything in the loop will repeat as long as the user enters 'Y' or 'y', meaning they want to enter another review
     {
-        // prompt user to enter a value that corresponds to the mode they would like to select (head or tail)
-        // input validation is included to ensure that the user only selects 1 or 2, since there are only 2 options
-        do 
-        {
-            cout << "Which linked list method would you like to choose? - " << endl;
-            cout << "[1] New nodes are added at the head of the linked list" << endl;
-            cout << "[2] New nodes are added at the tail of the linked list" << endl;
-            cout << "Please enter your choice here (1 or 2 only): ";
-            cin >> userMode;
-
-            if (userMode != 1 && userMode != 2)
-                cout << "ERROR: Selection has to be option 1 or option 2. Please try again by entering a valid option." << endl << endl;
-
-        } while (userMode != 1 && userMode != 2);
-
         // prompt user to enter a movie rating
         // input validation is included to ensure that the user only enters a value between 0.0 and 5.0, since that is the range for valid movie review ratings
         do
         {
-            cout << endl;
             cout << "Please enter a rating for the movie (0.0 to 5.0 only): ";
             cin >> rating;
 
@@ -69,16 +69,15 @@ int main()
 
         } while (true);
 
-        // prompt user to enter movie comments
+        // prompt user to enter movie review comments
         // input validation is included to ensure that the user does not leave the field blank
         do
         {
             cout << "Please enter review comments for the movie: ";
             getline(cin, comment);
-            cout << endl;
 
             if (comment.empty())
-                cout << "ERROR: Field cannot remain blank. Please try again by entering review comments." << endl << endl;
+                cout << "ERROR: Field cannot remain blank. Please try again by entering review comments." << endl;
 
         } while (comment.empty());
 
@@ -93,9 +92,9 @@ int main()
         do
         {
             // ask user if they would like to enter another review 
+            cout << endl;
             cout << "Would you like to enter another review? (Y/N): ";
             cin >> additionalReview;
-            cout << endl;
 
             if (additionalReview != 'Y' && additionalReview != 'y' && additionalReview != 'N' && additionalReview != 'n')
                 cout << "ERROR: Input has to be Y/N or y/n only. Please try again by entering a valid choice." << endl;
@@ -113,8 +112,8 @@ int main()
     while (current) // traverse the list, visit each node
     {
         head = current->next; // head is set to next node
-        delete current; // delete node
-        current = head; // current is set to head again
+        delete current; // delete current head node
+        current = head; // current is set to new head
     }
 
     head = nullptr; // indicates an empty list
@@ -128,7 +127,7 @@ int main()
 // - double rating, which represents the movie rating being added
 // - string comment, which represents the movie comment being added
 // Passing by reference because the linked list will be modified and this modification will also reflect in main()
-// RETURNS: nothing, void function. Purpose is to just create a node with values and add it to the head of the list
+// RETURNS: nothing, void function. Purpose is to just create a new node with values and add it to the head of the list
 void addNodeToHead(MovieReviewNode *& head, double rating, string comment)
 {
     MovieReviewNode *newNode = new MovieReviewNode; // create a new node
@@ -143,7 +142,7 @@ void addNodeToHead(MovieReviewNode *& head, double rating, string comment)
     else // if linked list is NOT empty
     {
         newNode->next = head; // next will now point to list's 1st node
-        head = newNode; // head points to newNode
+        head = newNode; // head points to newNode now
     }
 }
 
@@ -194,13 +193,14 @@ void output(MovieReviewNode * head)
     }
 
     int count = 1; // to keep a count/track of the movie reviews (starts at 1)
-    MovieReviewNode *current = head; // // used to start at the beginning of the list and traverse
+    MovieReviewNode *current = head; // used to start at the beginning of the list and traverse
 
     // traverse the list and display its contents (movie reviews)
+    cout << endl;
     cout << "Outputting all reviews..." << endl << endl;
     while (current)
     {
-        cout << "Review #" << count++ << "-" << endl;
+        cout << "Review #" << count++ << " -" << endl;
         cout << "Rating: " << current->movieRating << ", ";
         cout << "Comments: " << current->movieComment << endl << endl;
 
@@ -219,6 +219,6 @@ void output(MovieReviewNode * head)
         current = current->next; // move to next node
     }
 
-    average = sum / count; // calculate average
+    average = sum / (count - 1); // calculate average, dividing by (count - 1) because count started at 1 
     cout << "Average rating: " << average << endl;
 }
